@@ -5,6 +5,7 @@ const { width } = Dimensions.get('window');
 const Stack = createStackNavigator();
 import RadioGroup from 'react-native-radio-buttons-group';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { AntDesign } from '@expo/vector-icons';
 import {
   register,
 } from "../ForumApi";
@@ -13,17 +14,18 @@ const SignUp = ({navigation}) => {
   const [passwordd, setPasswordd] = useState('');
   const [FullName, setFullName] = useState('');
   const [Username, setUsername] = useState('');
+  const [ConfirmPassword, setConfirmPassword] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date(2023, 5, 10));
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [ConfirmPassword, setConfirmPassword] = useState('');
+  const [genderr, setGender] = useState('');
 
   const Register = async () => {
     const full_name = FullName;
     const username = Username;
     const email = emaill;
     const password = passwordd;
-    const birthday = "1999-01-01";
-    const gender = "female";
+    const birthday = '1990-2-12';
+    const gender = 'female';
     const password_confirmation = ConfirmPassword;
     const response = await register({
         full_name,
@@ -37,6 +39,7 @@ const SignUp = ({navigation}) => {
     console.log(password)
     console.log(password_confirmation)
     console.log(FullName);
+    
     // await console.log(response);
 }
 // const register = ()=>{
@@ -53,39 +56,34 @@ const handleSignIn = () => {
     // Tambahkan logika autentikasi di sini
     console.log('Login dengan email:', email, 'dan password:', password);
   };
-
   const handleDateChange = (event, date) => {
     setShowDatePicker(false);
     if (date && date <= new Date()) {
       setSelectedDate(date);
     }
   };
+
   const toggleDatePicker = () => {
     setShowDatePicker(!showDatePicker);
   };
-    console.log('Selected Date:', selectedDate);
+
+  const handleGenderChange = (selectedGender) => {
+    setGender(selectedGender);
+  };
+
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+  };
 
 
 const handleSignUp = () => {
     // Tambahkan logika registrasi di sini
     console.log('Registrasi dengan email:', emaill, 'dan password:', passwordd);
-    navigation.navigate('SignUp');
+    navigation.navigate('SignIn');
 };
-
-const[gender, setGender] = useState([
-    {
-        id: '1',
-        label: 'male',
-        value: 'male',
-    },
-    {
-        id:'2',
-        label:'female',
-        value:'female',
-    },
-]);
-
-
 
   return (
     <View contentContainerStyle={styles.container}>
@@ -140,27 +138,61 @@ const[gender, setGender] = useState([
                         onChangeText={setConfirmPassword}
                         />
                 </View>
-                {/* <View style={styles.inputContainer}>
-                <Text style={styles.label}>Birthday</Text>
-                    <View style={styles.input}>
-                        <TextInput
-                            placeholder="Date"
-                            value={selectedDate.toLocaleDateString()}
-                            />
-                        <TouchableOpacity onPress={toggleDatePicker}>
-                            <Text style={{ color: '#3E8B65', fontSize: 14, marginRight:'40'}}>Choose</Text>
-                        </TouchableOpacity>
-                    </View>
-                    {showDatePicker && (
-                        <DateTimePicker
-                        value={selectedDate}
-                        mode="date"
-                        display="default"
-                        onChange={handleDateChange}
-                        />
-                    )}
+                <View style={styles.inputContainer}>
+        <Text style={styles.label}>Birthday</Text>
+        <View style={styles.input}>
+          <View style={styles.inputTextContainer}>
+            <TextInput
+              placeholder="dd/mm/yyyy"
+              value={selectedDate ? formatDate(selectedDate) : ''}
+              onChangeText={(text) => {
+                setSelectedDate(null);
+                const [day, month, year] = text.split('/');
+                const newDate = new Date(`${year}-${month}-${day}`);
+                if (!isNaN(newDate.getTime()) && newDate <= new Date()) {
+                  setSelectedDate(newDate);
+                }
+              }}
+            />
+          </View>
+          <TouchableOpacity onPress={toggleDatePicker}>
+            <AntDesign name="calendar" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+        {showDatePicker && (
+          <DateTimePicker
+            value={selectedDate || new Date()}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
+      </View>
 
-                </View> */}
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text>Gender:</Text>
+        <TouchableOpacity
+          style={[styles.radioButton, genderr === 'Male' && styles.radioButtonSelected]}
+          onPress={() => handleGenderChange('Male')}
+        >
+          {genderr === 'Male' && <View style={styles.radioButtonInner} />}
+        </TouchableOpacity>
+        <Text>Male</Text>
+        <TouchableOpacity
+          style={[styles.radioButton, genderr === 'Female' && styles.radioButtonSelected]}
+          onPress={() => handleGenderChange('Female')}
+        >
+          {genderr === 'Female' && <View style={styles.radioButtonInner} />}
+        </TouchableOpacity>
+        <Text>Female</Text>
+        <TouchableOpacity
+          style={[styles.radioButton, genderr === 'Other' && styles.radioButtonSelected]}
+          onPress={() => handleGenderChange('Other')}
+        >
+          {genderr === 'Other' && <View style={styles.radioButtonInner} />}
+        </TouchableOpacity>
+        <Text>Other</Text>
+      </View>
 
                 <TouchableOpacity style={styles.button} onPress={()=>Register()}>
                 <Text style={styles.buttonText}>Sign Up</Text>
@@ -245,6 +277,33 @@ const styles = StyleSheet.create({
   signUpLink: {
     color: '#3E8B65',
     fontWeight: 'bold',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  inputTextContainer: {
+    flex: 1,
+    marginRight: 10,
+  },
+  radioButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 5,
+  },
+  radioButtonSelected: {
+    borderColor: 'blue',
+  },
+  radioButtonInner: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: 'blue',
   },
 });
 

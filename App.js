@@ -89,25 +89,25 @@ const Register = async () => {
 }
 
     return(
-    // <NavigationContainer>
-    //     <Router />
-    // </NavigationContainer>
-    <View style={styles.container}>
-    <View>
-            <Text>Open up App.js to start working on your app!</Text>
-            <StatusBar style="auto" />
-            <Button title="login()" onPress={() => Login()} />
-            <Button title="AllForum" onPress={() => AllForum()} />
-            <Button title="ForumByID" onPress={() => ForumByID(1)} />
-            <Button title="register" onPress={() => Register()} />
-            <Button title="Like" onPress={() => Like()} />
-            <Button title="Unlike" onPress={() => Unlike()} />
+    <NavigationContainer>
+        <Router />
+    </NavigationContainer>
+//     <View style={styles.container}>
+//     <View>
+//             <Text>Open up App.js to start working on your app!</Text>
+//             <StatusBar style="auto" />
+//             <Button title="login()" onPress={() => Login()} />
+//             <Button title="AllForum" onPress={() => AllForum()} />
+//             <Button title="ForumByID" onPress={() => ForumByID(1)} />
+//             <Button title="register" onPress={() => Register()} />
+//             <Button title="Like" onPress={() => Like()} />
+//             <Button title="Unlike" onPress={() => Unlike()} />
             
-            <Button title="get_me" onPress={() => Getmydatafromapi()} />
-            <Button title="AddThread" onPress={() => AddThread()} />
+//             <Button title="get_me" onPress={() => Getmydatafromapi()} />
+//             <Button title="AddThread" onPress={() => AddThread()} />
 
-</View>
-        </View>
+// </View>
+//         </View>
     )
 };
 
