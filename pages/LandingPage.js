@@ -20,6 +20,7 @@ const LandingPage = ({ navigation }) => {
 
   const handleSignUp = () => {
     // Tambahkan logika registrasi di sini
+    navigation.navigate('SignUp');
     console.log('Registrasi dengan email:', email, 'dan password:', password);
   };
 

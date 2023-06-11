@@ -5,8 +5,9 @@ const { width } = Dimensions.get('window');
 const Stack = createStackNavigator();
 import RadioGroup from 'react-native-radio-buttons-group';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-
+import {
+  register,
+} from "../ForumApi";
 const SignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +17,24 @@ const SignUp = ({navigation}) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [ConfirmPassword, setConfirmPassword] = useState('');
 
+  const Register = async () => {
+    const full_name = "Johndoee";
+    const username = "johndoe";
+    const email = "johndoe@example.com";
+    const password = "johndoe123";
+    const birthday = "1999-01-01";
+    const gender = "female";
+    const response = await register({
+        full_name,
+        username,
+        email,
+        password,
+        birthday,
+        gender,
+    });
+    console.log(FullName);
+    // await console.log(response);
+}
 const handleSignIn = () => {
     // Tambahkan logika autentikasi di sini
     console.log('Login dengan email:', email, 'dan password:', password);
@@ -107,7 +126,7 @@ const[gender, setGender] = useState([
                         onChangeText={setConfirmPassword}
                         />
                 </View>
-                <View style={styles.inputContainer}>
+                {/* <View style={styles.inputContainer}>
                 <Text style={styles.label}>Birthday</Text>
                     <View style={styles.input}>
                         <TextInput
@@ -127,9 +146,9 @@ const[gender, setGender] = useState([
                         />
                     )}
 
-                </View>
+                </View> */}
 
-                <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                <TouchableOpacity style={styles.button} onPress={()=>Register()}>
                 <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
 

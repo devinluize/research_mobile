@@ -3,7 +3,17 @@ import { Image, View, Text, TextInput,ScrollView, TouchableOpacity, StyleSheet, 
 import { createStackNavigator } from '@react-navigation/stack';
 const { width } = Dimensions.get('window');
 const Stack = createStackNavigator();
-
+import {
+  getAllForum,
+  getForumByID,
+  addThreadToForum,
+  addCommentToThread,
+  likeThread,
+  unlikeThread,
+  login,
+  register,
+  getmydata,
+} from "../ForumApi";
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +29,12 @@ const SignIn = ({navigation}) => {
     console.log('Registrasi dengan email:', email, 'dan password:', password);
     navigation.navigate('SignUp');
 };
+const Login = async () => {
+  const email = email;
+  const password = password;
+  const response = await login({ email, password });
+  await console.log(response);
+}
 
   return (
     <View contentContainerStyle={styles.container}>
@@ -47,11 +63,11 @@ const SignIn = ({navigation}) => {
                         />
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                <TouchableOpacity style={styles.button} onPress={()=>Login()}>
                 <Text style={styles.buttonText}>Sign In</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={handleSignUp}>
+                <TouchableOpacity onPress={(handleSignUp)}>
                     <Text style={styles.signUpText}>
                         New user? <Text style={styles.signUpLink}>Sign Up</Text>
                     </Text>

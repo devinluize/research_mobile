@@ -18,6 +18,7 @@ import {
 } from "./ForumApi";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import SignUp from './pages/SignUp';
 const App = () => {
   const [forum, setForum] = useState({
     title: "Pengumpulan Tugas 1",
@@ -70,10 +71,10 @@ const Login = async () => {
 }
 
 const Register = async () => {
-    const full_name = "John Doe";
-    const username = "johndoe";
-    const email = "johndoe@example.com";
-    const password = "johndoe123";
+    const full_name = "John Doe123";
+    const username = "johndoe123";
+    const email = "johndoe123@example.com";
+    const password = "johndoe123123";
     const birthday = "1999-01-01";
     const gender = "female";
     const response = await register({
@@ -88,23 +89,24 @@ const Register = async () => {
 }
 
     return(
-    // <NavigationContainer>
-    //     <Router />
-    // </NavigationContainer>
-    <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
-            <StatusBar style="auto" />
-            <Button title="login()" onPress={() => Login()} />
-            <Button title="AllForum" onPress={() => AllForum()} />
-            <Button title="ForumByID" onPress={() => ForumByID(1)} />
-            <Button title="register" onPress={() => Register()} />
-            <Button title="Like" onPress={() => Like()} />
-            <Button title="Unlike" onPress={() => Unlike()} />
-            <Button title="get_me" onPress={() => Getmydatafromapi()} />
-
-        </View>
+    <NavigationContainer>
+        <Router />
+    </NavigationContainer>
+//     <View style={styles.container}>
+//     <View>
+//             <Text>Open up App.js to start working on your app!</Text>
+//             <StatusBar style="auto" />
+//             <Button title="login()" onPress={() => Login()} />
+//             <Button title="AllForum" onPress={() => AllForum()} />
+//             <Button title="ForumByID" onPress={() => ForumByID(1)} />
+//             <Button title="register" onPress={() => Register()} />
+//             <Button title="Like" onPress={() => Like()} />
+//             <Button title="Unlike" onPress={() => Unlike()} />
+//             <Button title="get_me" onPress={() => Getmydatafromapi()} />
+// </View>
+//         </View>
     )
-}
+};
 
 export default App
 

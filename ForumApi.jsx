@@ -7,9 +7,9 @@ const ENDPOINTS = {
   FORUM_THREAD_COMMENT: (id) => `api/forum/${id}/comment`,
   FORUM_THREAD_LIKE: (id) => `api/forum/${id}/like`,
   FORUM_THREAD_UNLIKE: (id) => `api/forum/${id}/unlike`,
-  LOGIN: () => 'login',
-  REGISTER: () => 'register2',
-  GETDATA:()=>'me'
+  LOGIN: () => 'api/login',
+  REGISTER: () => 'api/register2',
+  GETDATA:()=>'api/me'
 }
 
 const getAllForum = async() =>{
@@ -85,7 +85,7 @@ const login = async(payload) =>{
 }
 
 const register = async(payload) => {
-  // console.log("data_receive")
+  console.log("data_receive")
   try {
     const result = await API.get(`${ENDPOINTS.REGISTER()}?${new URLSearchParams(payload)}`);
     return result.data;
