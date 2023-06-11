@@ -1,66 +1,108 @@
-import API from "./Api";
+// import { Post,Get } from './Api';
+import API from './Api';
 const ENDPOINTS = {
-  FORUM: () => "api/forum",
-  FORUM_ID: (id) => `api/forum/${id}`,
-  FORUM_THREAD_ADD: () => "api/forum/add",
+  FORUM: () => 'api/posts',
+  FORUM_ID: (id) => `api/posts/${id}`,
+  FORUM_THREAD_ADD: () => 'api/forum/add',
   FORUM_THREAD_COMMENT: (id) => `api/forum/${id}/comment`,
   FORUM_THREAD_LIKE: (id) => `api/forum/${id}/like`,
   FORUM_THREAD_UNLIKE: (id) => `api/forum/${id}/unlike`,
-  LOGIN: () => "login",
-  REGISTER: () => "register",
-};
+  LOGIN: () => 'login',
+  REGISTER: () => 'register2',
+  GETDATA:()=>'me'
+}
 
-// const getAllForum = () => {
-//   const result = Get(ENDPOINTS.FORUM());
-//   return result;
-// };
-// const getForumByID = (id) => {
-//   const result = Get(ENDPOINTS.FORUM_ID(id));
-//   return result;
-// };
+const getAllForum = async() =>{
+  try {
+    const result = await API.get(ENDPOINTS.FORUM());
+    return result.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+const getmydata = async()=>{
+  // console.log("tes");
+  try{
+  const result = await API.get(ENDPOINTS.GETDATA());
+  return result.data;
+} catch (err) {
+  console.log(err);
+}
+}
 
-// const addThreadToForum = (id, payload) => {
-//   const result = Post(ENDPOINTS.FORUM_THREAD_ADD(id), payload);
-//   return result;
-// };
+const getForumByID = async(id) =>{
+  try {
+    const result = await API.get(ENDPOINTS.FORUM_ID(id));
+    return result.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// const addCommentToThread = (id, payload) => {
-//   const result = Post(ENDPOINTS.FORUM_THREAD_COMMENT(id), payload);
-//   return result;
-// };
+const addThreadToForum = async(id,payload) => {
+  try {
+    const result = await API.post(ENDPOINTS.FORUM_THREAD_ADD(id),payload);
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// const likeThread = (id, payload) => {
-//   const result = Post(ENDPOINTS.FORUM_THREAD_LIKE(id), payload);
-//   return result;
-// };
+const addCommentToThread = async(id,payload) => {
+  try {
+    const result = await API.post(ENDPOINTS.FORUM_THREAD_COMMENT(id),payload);
+    return result.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// const unlikeThread = (id, payload) => {
-//   const result = Post(ENDPOINTS.FORUM_THREAD_UNLIKE(id), payload);
-//   return result;
-// };
+const likeThread = async(id,payload) => {
+  try {
+    const result = await API.post(ENDPOINTS.FORUM_THREAD_LIKE(id),payload);
+    return result.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-const login = async (payload) => {
-  // console.log("asdasdsa");
-  const result = await API.get(
-    `${ENDPOINTS.LOGIN}?${new URLSearchParams(payload)}`
-  );
-  return result;
-};
+const unlikeThread = async(id,payload) => {
+  try {
+    const result = await API.post(ENDPOINTS.FORUM_THREAD_UNLIKE(id),payload);
+    return result.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-const register = async (payload) => {
-  const result = await API.get(
-    `${ENDPOINTS.REGISTER}?${new URLSearchParams(payload)}`
-  );
-  return result;
-};
+const login = async(payload) =>{
+  try {
+    const result = await API.get(`${ENDPOINTS.LOGIN()}?${new URLSearchParams(payload)}`);
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const register = async(payload) => {
+  // console.log("data_receive")
+  try {
+    const result = await API.get(`${ENDPOINTS.REGISTER()}?${new URLSearchParams(payload)}`);
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 
 export {
-  // getAllForum,
-  // getForumByID,
-  // addThreadToForum,
-  // addCommentToThread,
-  // likeThread,
-  // unlikeThread,
+  getAllForum,
+  getForumByID,
+  addThreadToForum,
+  addCommentToThread,
+  likeThread,
+  unlikeThread,
   login,
   register,
+  getmydata
 };
