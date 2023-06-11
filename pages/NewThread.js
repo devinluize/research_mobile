@@ -1,26 +1,39 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, StatusBar, Button } from 'react-native';
+import {Image, TouchableOpacity, StyleSheet, View, Text, TextInput, SafeAreaView, StatusBar, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const NewThread = ({ navigation }) => {
-  const [entries, setEntries] = useState([]);
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
 
-  const addEntry = () => {
-    if (title && message) {
-      const newEntry = { title, message };
-      setEntries((prevEntries) => [...prevEntries, newEntry]);
-      setTitle('');
-      setMessage('');
-    }
-  };
+const NewThread = ({navigation}) => {
+//   const [entries, setEntries] = useState([]);
+    const [title, setTitle] = useState('');
+    const [message, setMessage] = useState('');
+    const [image, setImage] = useState('');
+    // const navigation = useNavigation();
+
+    const addEntry = () => {
+        if (title && message) {
+          const newEntry = { title, message, image };;
+          setTitle('');
+          setMessage('');
+          setImage('');
+          navigation.navigate('Forum', {newEntry: newEntry});
+        }
+      };
+    
+
+  const handleForum = () => {
+    navigation.navigate('Forum');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.text}>Post New Thread</Text>
-        </View>
+        <TouchableOpacity style={styles.leftContainer} onPress = {handleForum}>
+            <Image source = {require('../assets/Arrow.png')}/>
+            <Text style={styles.text}>Post New Thread</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.line} />
@@ -37,25 +50,44 @@ const NewThread = ({ navigation }) => {
       /> */}
 
       <View style={styles.inputContainer}>
+        <Text style={styles.label}>Title</Text>
         <TextInput
           style={styles.input}
           onChangeText={setTitle}
           value={title}
-          placeholder="Title"
+          placeholder="Thread Title"
         />
       </View>
 
-      <View style={styles.inputContainer}>
+      <View style={styles.inputContainer2}>
+        <Text style={styles.label}>Message</Text>
+        <View style={styles.messageContainer}>
+          <TextInput
+            style={styles.input2}
+            onChangeText={setMessage}
+            value={message}
+            placeholder="Thread Message"
+            multiline={true}
+          />
+        </View>
+      </View>
+
+      <View style={styles.inputContainer3}>
+        <Text style={styles.label2}>Image</Text>
         <TextInput
-          style={styles.input2}
-          onChangeText={setMessage}
-          value={message}
-          placeholder="Message"
+          style={styles.input3}
+          onChangeText={setImage}
+          value={image}
+          placeholder="Thread Image"
           multiline={true}
         />
       </View>
 
-      <Button style ={styles.buttonPost} title="Post" onPress={addEntry} />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonPost} onPress={addEntry}>
+          <Text style={styles.buttonText}>Post Thread</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -72,6 +104,8 @@ const styles = StyleSheet.create({
   },
   leftContainer: {
     flex: 1,
+    flexDirection: 'row',
+    marginLeft: 5
   },
   line: {
     width: '100%',
@@ -86,38 +120,79 @@ const styles = StyleSheet.create({
   entryTitle: {
     fontWeight: 'bold',
   },
-  entryMessage: {},
   inputContainer: {
     marginHorizontal: 20,
-    marginBottom: 16,
+    marginBottom: 8,
+    borderRadius: 5,
   },
   inputContainer2: {
     marginHorizontal: 20,
+    marginBottom: 0,
+    flex: 0.5, // Set the flex to 1
+    borderRadius: 5,
+  },
+  inputContainer3: {
+    marginHorizontal: 20,
     marginBottom: 16,
+    borderRadius: 5,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    borderRadius: 5,
+  },
+  label2: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 8,
+    borderRadius: 5,
+    marginBottom: 8,
   },
   input: {
-    height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 8,
     width: '100%',
+    borderRadius: 5,
   },
   input2: {
-    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    marginTop: 8,
+    textAlignVertical: 'top',
+    borderRadius: 5,
+    flex: 1, // Set the flex to 1
+  },
+  input3: {
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 8,
     width: '100%',
-    height: '60%',
+    borderRadius: 5,
   },
   text: {
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 10,
   },
-  buttonPost:{
-      backgroundColor: '#3E8B65',
-  }
+  buttonPost: {
+    backgroundColor: '#3E8B65',
+    width: '40%',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    alignSelf: 'center',
+    fontSize: 18,
+  },
+  buttonContainer: {
+    alignItems: 'center'
+  },
+  messageContainer: {
+    flex: 1,
+  },
 });
 
 export default NewThread;

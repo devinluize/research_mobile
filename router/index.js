@@ -11,6 +11,7 @@ import LandingPage from '../pages/LandingPage';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import NewThread from '../pages/NewThread';
+import Thread from '../pages/Thread';
 
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ const Router = () => {
             <Stack.Screen name = "SignUp" component={SignUp} options={{headerShown: false}}/>
             <Stack.Screen name="MainApp" component={MainApp} options = {{headerShown: false}}/>
             <Stack.Screen name="NewThread" component={NewThread} options = {{headerShown: false}}/>
+            <Stack.Screen name="Thread" component={Thread} options = {{headerShown: false}}/>
         </Stack.Navigator>
     )
 }

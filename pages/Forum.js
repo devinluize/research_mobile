@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
-import {StyleSheet,View,Text,TextInput,SafeAreaView,StatusBar,FlatList,Button, TouchableOpacity} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {Image,StyleSheet,View,Text,TextInput,SafeAreaView,StatusBar,FlatList,Button, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
-const Forum = ({ navigation }) => {
+const Forum = ({navigation}) => {
+    const route = useRoute();
+    const newEntry = route.params?.newEntry;    
+    const { title, message, image } = newEntry || {}; 
 
 
   const handleNewThread = () => {
     navigation.navigate('NewThread');
+  };
+
+  const handleThread = () => {
+      navigation.navigate('Thread');
+  }
+
+  const [likes, setLikes] = useState(0);
+
+  const handleLike = () => {
+    setLikes(likes + 1);
   };
 
   return (
@@ -24,6 +38,37 @@ const Forum = ({ navigation }) => {
       </View>
 
       <View style={styles.line} />
+
+      <TouchableOpacity style ={styles.threadContainer}onPress={handleThread}>
+          <Text style = {styles.titleText}>Eco-Enzyme as Disinfectant</Text>
+          <View style ={styles.bottomTittleText}>
+              <Image source = {require('../assets/Forum1.png')}/>
+              <Text style={styles.name}>Devin Suhandi</Text>
+                <Image source = {require('../assets/Forum2.png')}
+                    styles={styles.image}
+                    resizeMode="contain"/>
+                <Text style={styles.date}>3 Juni 2023 20:00 PM</Text>
+          </View>
+          <Text style = {styles.messageContainer}>
+            <Text>{title}</Text>
+            <Text>{message}</Text>
+            <Text>{image}</Text>
+          </Text>
+            <View style = {styles.likeCommentContainer}>
+                <View style={styles.likeContainer}>
+                    <TouchableOpacity onPress={handleLike}>
+                        <Image source={require('../assets/Like.png')} style={styles.imageLike} />
+                    </TouchableOpacity>
+                    <Text>{likes}</Text>
+                </View>
+                <View style={styles.commentContainer}>
+                    <TouchableOpacity onPress={handleLike}>
+                            <Image source={require('../assets/Comment.png')} style={styles.imageComment} />
+                        </TouchableOpacity>
+                        <Text></Text>
+                </View>
+            </View>
+        </TouchableOpacity>
 
     </SafeAreaView>
   );
@@ -55,12 +100,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   newThread: {
-    fontSize: 12,
+    fontSize: 15,
     textAlign: 'center',
     color: 'white',
   },
   text: {
-    fontSize: 16,
+    fontSize: 21,
     fontWeight: 'bold',
     marginLeft: 10,
   },
@@ -70,6 +115,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     marginTop: 15,
   },
+  bottomTittleText:{
+      flexDirection:'row',
+  },
+  threadContainer:{
+      marginTop: 20,
+      alignSelf:'center',
+      width: '90%',
+      backgroundColor: 'rgba(62, 139, 101, 0.2)',
+  },
+  likeCommentContainer:{
+      flexDirection:'row'
+  },
+  likeContainer:{
+      flexDirection:'row',
+  },
+  commentContainer:{
+        flexDirection:'row',
+        marginLeft: 10,
+        marginTop: 3
+  }
 });
 
 export default Forum;
