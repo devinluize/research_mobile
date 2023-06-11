@@ -15,25 +15,31 @@ import {
   getmydata,
 } from "../ForumApi";
 const SignIn = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emaill, setEmaill] = useState('');
+  const [passwordd, setPasswordd] = useState('');
 
   const handleSignIn = () => {
     // Tambahkan logika autentikasi di sini
-    console.log('Login dengan email:', email, 'dan password:', password);
+    console.log('Login dengan email:', emaill, 'dan password:', passwordd);
     navigation.navigate('MainApp');
   };
 
   const handleSignUp = () => {
     // Tambahkan logika registrasi di sini
-    console.log('Registrasi dengan email:', email, 'dan password:', password);
+    console.log('Registrasi dengan email:', emaill, 'dan password:', passwordd);
     navigation.navigate('SignUp');
 };
 const Login = async () => {
-  const email = email;
-  const password = password;
+  const email = emaill;
+  const password = passwordd;
   const response = await login({ email, password });
   await console.log(response);
+  if(response==false){
+
+  }
+  else{
+    navigation.navigate("MainApp");
+  }
 }
 
   return (
@@ -48,18 +54,18 @@ const Login = async () => {
                         <TextInput
                         style={styles.input}
                         placeholder="Email"
-                        value={email}
-                        onChangeText={setEmail}
+                        value={emaill}
+                        onChangeText={setEmaill}
                     />
                 </View>
-               <View style={styles.inputContainer}>
+                <View style={styles.inputContainer}>
                     <Text style={styles.label}>Password</Text>
                         <TextInput
                         style={styles.input}
                         placeholder="Password"
                         secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
+                        value={passwordd}
+                        onChangeText={setPasswordd}
                         />
                 </View>
 

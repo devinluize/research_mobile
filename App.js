@@ -28,7 +28,6 @@ const App = () => {
 const [comment, setComment] = useState({
     message: "Halo semua, ini adalah thread untuk pengumpulan tugas 1",
 })
-
 const AllForum = async () => {
     const response = await getAllForum();
     await console.log(response);
@@ -39,10 +38,11 @@ const ForumByID = async (id) => {
     await console.log(response);
 }
 
-const AddThread = async (data_forum) => {
-    const response = await addThreadToForum(data_forum);
+const AddThread = async () => {
+    const response = await addThreadToForum(forum);
     await console.log(response);
 }
+
 const Getmydatafromapi = async () => {
   const response = await getmydata();
   await console.log(response);
@@ -89,22 +89,25 @@ const Register = async () => {
 }
 
     return(
-    <NavigationContainer>
-        <Router />
-    </NavigationContainer>
-//     <View style={styles.container}>
-//     <View>
-//             <Text>Open up App.js to start working on your app!</Text>
-//             <StatusBar style="auto" />
-//             <Button title="login()" onPress={() => Login()} />
-//             <Button title="AllForum" onPress={() => AllForum()} />
-//             <Button title="ForumByID" onPress={() => ForumByID(1)} />
-//             <Button title="register" onPress={() => Register()} />
-//             <Button title="Like" onPress={() => Like()} />
-//             <Button title="Unlike" onPress={() => Unlike()} />
-//             <Button title="get_me" onPress={() => Getmydatafromapi()} />
-// </View>
-//         </View>
+    // <NavigationContainer>
+    //     <Router />
+    // </NavigationContainer>
+    <View style={styles.container}>
+    <View>
+            <Text>Open up App.js to start working on your app!</Text>
+            <StatusBar style="auto" />
+            <Button title="login()" onPress={() => Login()} />
+            <Button title="AllForum" onPress={() => AllForum()} />
+            <Button title="ForumByID" onPress={() => ForumByID(1)} />
+            <Button title="register" onPress={() => Register()} />
+            <Button title="Like" onPress={() => Like()} />
+            <Button title="Unlike" onPress={() => Unlike()} />
+            
+            <Button title="get_me" onPress={() => Getmydatafromapi()} />
+            <Button title="AddThread" onPress={() => AddThread()} />
+
+</View>
+        </View>
     )
 };
 

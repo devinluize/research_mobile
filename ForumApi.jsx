@@ -3,7 +3,7 @@ import API from './Api';
 const ENDPOINTS = {
   FORUM: () => 'api/posts',
   FORUM_ID: (id) => `api/posts/${id}`,
-  FORUM_THREAD_ADD: () => 'api/forum/add',
+  FORUM_THREAD_ADD: () => 'api/post_forum',
   FORUM_THREAD_COMMENT: (id) => `api/forum/${id}/comment`,
   FORUM_THREAD_LIKE: (id) => `api/forum/${id}/like`,
   FORUM_THREAD_UNLIKE: (id) => `api/forum/${id}/unlike`,

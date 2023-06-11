@@ -9,8 +9,8 @@ import {
   register,
 } from "../ForumApi";
 const SignUp = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emaill, setEmaill] = useState('');
+  const [passwordd, setPasswordd] = useState('');
   const [FullName, setFullName] = useState('');
   const [Username, setUsername] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date(2023, 5, 10));
@@ -18,12 +18,13 @@ const SignUp = ({navigation}) => {
   const [ConfirmPassword, setConfirmPassword] = useState('');
 
   const Register = async () => {
-    const full_name = "Johndoee";
-    const username = "johndoe";
-    const email = "johndoe@example.com";
-    const password = "johndoe123";
+    const full_name = FullName;
+    const username = Username;
+    const email = emaill;
+    const password = passwordd;
     const birthday = "1999-01-01";
     const gender = "female";
+    const password_confirmation = ConfirmPassword;
     const response = await register({
         full_name,
         username,
@@ -31,10 +32,23 @@ const SignUp = ({navigation}) => {
         password,
         birthday,
         gender,
+        password_confirmation
     });
+    console.log(password)
+    console.log(password_confirmation)
     console.log(FullName);
     // await console.log(response);
 }
+// const register = ()=>{
+//   const payload = {
+//           full_name = FullName,
+//          username = "johndoe",
+//          email = "johndoe@example.com",
+//          password = "johndoe123",
+//          birthday = "1999-01-01",
+//          gender = "female",
+//   }
+// }
 const handleSignIn = () => {
     // Tambahkan logika autentikasi di sini
     console.log('Login dengan email:', email, 'dan password:', password);
@@ -54,7 +68,7 @@ const handleSignIn = () => {
 
 const handleSignUp = () => {
     // Tambahkan logika registrasi di sini
-    console.log('Registrasi dengan email:', email, 'dan password:', password);
+    console.log('Registrasi dengan email:', emaill, 'dan password:', passwordd);
     navigation.navigate('SignUp');
 };
 
@@ -85,7 +99,7 @@ const[gender, setGender] = useState([
                         style={styles.input}
                         placeholder="Full Name"
                         value={FullName}
-                        onChangeText={setFullName}
+                        onChangeText={(text) => setFullName(text)}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -102,8 +116,8 @@ const[gender, setGender] = useState([
                         <TextInput
                         style={styles.input}
                         placeholder="Email"
-                        value={email}
-                        onChangeText={setEmail}
+                        value={emaill}
+                        onChangeText={setEmaill}
                     />
                 </View>
                <View style={styles.inputContainer}>
@@ -112,8 +126,8 @@ const[gender, setGender] = useState([
                         style={styles.input}
                         placeholder="Password"
                         secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
+                        value={passwordd}
+                        onChangeText={setPasswordd}
                         />
                 </View>
                 <View style={styles.inputContainer}>
