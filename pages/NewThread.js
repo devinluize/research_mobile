@@ -3,6 +3,7 @@ import {Image, TouchableOpacity, StyleSheet, View, Text, TextInput, SafeAreaView
 import { NavigationContainer } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { addThreadToForum } from '../ForumApi';
 
 
 const NewThread = ({navigation}) => {
@@ -11,7 +12,15 @@ const NewThread = ({navigation}) => {
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
     // const navigation = useNavigation();
-
+    const [forum, setForum] = useState({
+      title: "Pengumpulan Tugas 1",
+      message:"Halo semua, ini adalah thread untuk pengumpulan tugas 1",
+      image:"https://fastly.picsum.photos/id/220/200/300.jpg?hmac=XQWeukbBSi6WSlgZllfOJjG8AQQXS9dYI8IqvKpE1ss",
+    });
+  const AddThread = async () => {
+    const response = await addThreadToForum(forum);
+    await console.log(response);
+}
     const addEntry = () => {
         if (title && message) {
           const newEntry = { title, message, image };;
@@ -87,6 +96,7 @@ const NewThread = ({navigation}) => {
         <TouchableOpacity style={styles.buttonPost} onPress={addEntry}>
           <Text style={styles.buttonText}>Post Thread</Text>
         </TouchableOpacity>
+        <Button title="submitthread" onPress={() => AddThread()} />
       </View>
     </SafeAreaView>
   );

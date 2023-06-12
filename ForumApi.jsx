@@ -4,18 +4,26 @@ const ENDPOINTS = {
   FORUM: () => 'api/posts',
   FORUM_ID: (id) => `api/posts/${id}`,
   FORUM_THREAD_ADD: () => 'api/post_forum',
-  FORUM_THREAD_COMMENT: (id) => `api/forum/${id}/comment`,
-  FORUM_THREAD_LIKE: (id) => `api/forum/${id}/like`,
+  FORUM_THREAD_COMMENT: (id) => `api/add_comment/${id}`,
+  FORUM_THREAD_LIKE: (id) => `api/like/${id}`,
   FORUM_THREAD_UNLIKE: (id) => `api/forum/${id}/unlike`,
   LOGIN: () => 'api/login',
   REGISTER: () => 'api/register2',
-  GETDATA:()=>'api/me'
+  GETDATA:()=>'api/me',
+  HASMANYCOMMENT: (id) => `api/many_comment/${id}`,
 }
-
 const getAllForum = async() =>{
   try {
     const result = await API.get(ENDPOINTS.FORUM());
     return result.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+const HasManyComment = async(id) =>{
+  try {
+    const result = await API.get(ENDPOINTS.HASMANYCOMMENT(id));
+    return result.data;
   } catch (err) {
     console.log(err);
   }
@@ -49,9 +57,9 @@ const getForumByID = async(id) =>{
 //   }
 // };
 
-const addThreadToForum = async(id,payload) => {
+const addThreadToForum = async(payload) => {
   try {
-    const result = await API.post(ENDPOINTS.FORUM_THREAD_ADD(id),payload);
+    const result = await API.post(ENDPOINTS.FORUM_THREAD_ADD(),payload);
     return result.data;
   } catch (err) {
     console.log(err);
@@ -67,10 +75,10 @@ const addCommentToThread = async(id,payload) => {
   }
 }
 
-const likeThread = async(id,payload) => {
+const likeThread = async(payload) => {
   try {
-    const result = await API.post(ENDPOINTS.FORUM_THREAD_LIKE(id),payload);
-    return result.data.data;
+    const result = await API.post(ENDPOINTS.FORUM_THREAD_LIKE(),payload);
+    return result.data;
   } catch (err) {
     console.log(err);
   }
@@ -114,5 +122,6 @@ export {
   unlikeThread,
   login,
   register,
-  getmydata
+  getmydata,
+  HasManyComment
 };

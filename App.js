@@ -23,7 +23,6 @@ const App = () => {
   const [forum, setForum] = useState({
     title: "Pengumpulan Tugas 1",
     message: "Halo semua, ini adalah thread untuk pengumpulan tugas 1",
-    image: "https://fastly.picsum.photos/id/220/200/300.jpg?hmac=XQWeukbBSi6WSlgZllfOJjG8AQQXS9dYI8IqvKpE1ss",
 })
 const [comment, setComment] = useState({
     message: "Halo semua, ini adalah thread untuk pengumpulan tugas 1",
@@ -39,10 +38,22 @@ const ForumByID = async (id) => {
 }
 
 const AddThread = async () => {
-    const response = await addThreadToForum(forum);
+  const title = "dasdasdasdas dasd123123123123";
+  const message = "blablabla12123 1321321 12 3 1 12 312312 sad asd a312321312";
+  const id2 = "2"
+    const response = await addThreadToForum({
+      title,
+      message,
+      id2,
+    });
     await console.log(response);
+    console.log(title);
 }
 
+const AddThread2 = async () => {
+  const response = await addThreadToForum(forum);
+  await console.log(response);
+}
 const Getmydatafromapi = async () => {
   const response = await getmydata();
   await console.log(response);
@@ -94,7 +105,7 @@ const Register = async () => {
     <NavigationContainer>
         <Router />
     </NavigationContainer>
-//     {/* <View style={styles.container}>
+//     <View style={styles.container}>
 //     <View>
 //             <Text>Open up App.js to start working on your app!</Text>
 //             <StatusBar style="auto" />
@@ -104,12 +115,12 @@ const Register = async () => {
 //             <Button title="register" onPress={() => Register()} />
 //             <Button title="Like" onPress={() => Like()} />
 //             <Button title="Unlike" onPress={() => Unlike()} />
-//             <Button title="submitthread" onPress={() => AddThread()} />
+//             <Button title="submitthread" onPress={() => AddThread2()} />
 //             <Button title="get_me" onPress={() => Getmydatafromapi()} />
 //             <Button title="AddThread" onPress={() => AddThread()} />
 
 // </View>
-//         </View> */}
+//         </View> 
     )
 };
 

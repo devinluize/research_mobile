@@ -3,11 +3,15 @@ import {Image, TouchableOpacity, StyleSheet, View, Text, TextInput, FlatList, Sa
 import { NavigationContainer } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { getForumByID ,getAllForum} from '../ForumApi';
+import { getForumByID ,getAllForum, likeThread} from '../ForumApi';
 import { useEffect } from 'react';
+import { addCommentToThread } from '../ForumApi';
+import { HasManyComment } from '../ForumApi';
+import { addThreadToForum } from '../ForumApi';
 
-const NewThread = ({route,navigation}) => {
-  const {itemId} = route.params;
+const NewThread = ({navigation}) => {
+  const route = useRoute();
+const { ThreadId } = route.params;
   const [likes, setLikes] = useState(0);
   const handleForum = () => {
     navigation.navigate('Forum');
@@ -18,8 +22,6 @@ const NewThread = ({route,navigation}) => {
     setLikes(likes + 1);
   };
   
-
-
 
 // console.log(counter)
 // if(counter==0){
@@ -49,34 +51,6 @@ const [data2,setData]=useState([
   },
 ])
 
-    // {
-    //   id: 1,
-    //   title: 'Eco-Enzyme as Disinfectant',
-    //   author: 'Devin Suhandi',
-    //   date: '3 Juni 2023 20:00 PM',
-    //   message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    //   image: 'Image Source',
-    // },
-
-  
-    // ForumByID(1);
-    // const dataforum = ForumByID(1);
-    // console.log("this is data forumm",dataforum)
-  //   useEffect(() => {
-  //     const ForumByID = async (id) => {
-  //       const response = await getForumByID(id);
-  //       await console.log(response);
-  //       data = response;
-  //     }
-  
-  //     ForumByID(1);
-  // }, []);
-//   const AllForum = async () => {
-//     const response = await getAllForum();
-//     setData(response);
-//     await console.log(response);
-// }
-
 const ForumByID = async (id) => {
   const response = await getForumByID(id);
   await console.log(response.data);
@@ -85,17 +59,50 @@ const ForumByID = async (id) => {
   // return response;
 }
 // await console.log(counter)
-if(counter<8){
-  console.log("dakjbdasj");
-  setCounter(counter+1);
-  ForumByID(2);
-}
-// useEffect(() => {
-//   data2.forEach(item => {
-//     console.log("this is item title",item.title);
-//   });
-// }, []);
 
+// useEffect(() => {
+//   // data2.forEach(item => {
+//   //   console.log("this is item title",item.title);
+//   // });
+//   if(counter<8){
+//     console.log("dakjbdasj");
+//     setCounter(counter+1);
+//     ForumByID(ThreadId);
+//   }
+// }, []);
+  if(counter<8){
+    console.log("dakjbdasj");
+    setCounter(counter+1);
+    ForumByID(ThreadId);
+  }
+  const hasmany = async (id) => {
+    const response = await HasManyComment(id);
+    await console.log(response);
+
+}
+
+const add_comment = async (id)=>{
+  const thread_id=id;
+  const comment = "dummy message";
+
+  const response=  await addCommentToThread(thread_id,{
+    comment,
+  });
+  await console.log(comment);
+}
+
+const AddThread = async () => {
+  const response = await addThreadToForum(forum);
+  await console.log(response);
+}
+
+const Like = async () => {
+  const id_thread = 29
+    const response = await likeThread({
+      id_thread,
+    });
+    await console.log(response);
+}
 
     // // Tambahkan data lainnya jika diperlukan
   const renderItem = ({ item }) => (
@@ -137,9 +144,12 @@ if(counter<8){
       </View>
     </TouchableOpacity>
   );
-    // console.log("this is data2",data)
-    console.log("this is data2",data2[0].id)
-    console.log("this is item id from route",itemId)
+  const titles = data2.map(obj => obj.title);
+  console.log("this is title map",titles[ThreadId-1]); 
+  const idd = data2.map(obj => obj.id);
+  console.log("this is id map",idd[ThreadId-1]); 
+  const message = data2.map(obj => obj.message);
+  console.log("this is message map",message[ThreadId-1]); 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -156,17 +166,27 @@ if(counter<8){
       </View>
 
       <View style={styles.line} />
-          <Text>{data2[0].title}</Text>
-      <FlatList
+          <Text>{titles[ThreadId-1]}</Text>
+          
+      {/* <FlatList
         data={data2[0]}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
-      />
+      /> */}
       <Text>this</Text>
+      <Button title="ADD COMMENT" onPress={() => add_comment(ThreadId)} />
+      <Button title="hasmanycomment" onPress={() => hasmany(ThreadId)} />
+      <Button title="Like" onPress={() => Like(ThreadId)} />
     </SafeAreaView>
 
   );
 };
+const AddThread = async () => {
+  const response = await addThreadToForum({
+    
+  });
+  await console.log(response);
+}
 
 const styles = StyleSheet.create({
     container: {
