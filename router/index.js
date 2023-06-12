@@ -30,6 +30,7 @@ const MainApp = () => {
 const Router = () => {
     return(
         <Stack.Navigator>
+        <Tab.Screen name="Forum" component={Forum} options = {{headerShown: false}}/>
             <Stack.Screen name = "LandingPage" component={LandingPage} options={{headerShown: false}}/>
             <Stack.Screen name = "SignIn" component={SignIn} options={{headerShown: false}}/>
             <Stack.Screen name = "SignUp" component={SignUp} options={{headerShown: false}}/>

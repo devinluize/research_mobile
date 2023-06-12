@@ -18,14 +18,16 @@ const SignUp = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date(2023, 5, 10));
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [genderr, setGender] = useState('');
-
   const Register = async () => {
+
+    const formatDate = selectedDate.toISOString().split('T')[0];
+
     const full_name = FullName;
     const username = Username;
     const email = emaill;
     const password = passwordd;
-    const birthday = '1990-2-12';
-    const gender = 'female';
+    const birthday = selectedDate.slice(0,9);
+    const gender = genderr;
     const password_confirmation = ConfirmPassword;
     const response = await register({
         full_name,
@@ -36,6 +38,9 @@ const SignUp = ({navigation}) => {
         gender,
         password_confirmation
     });
+    
+    console.log(selectedDate);
+    console.log(gender);
     console.log(password)
     console.log(password_confirmation)
     console.log(FullName);
@@ -144,7 +149,7 @@ const handleSignUp = () => {
           <View style={styles.inputTextContainer}>
             <TextInput
               placeholder="dd/mm/yyyy"
-              value={selectedDate ? formatDate(selectedDate) : ''}
+              value={selectedDate ? selectedDate.toISOString().split('T')[0] : ''}
               onChangeText={(text) => {
                 setSelectedDate(null);
                 const [day, month, year] = text.split('/');
@@ -172,17 +177,17 @@ const handleSignUp = () => {
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text>Gender:</Text>
         <TouchableOpacity
-          style={[styles.radioButton, genderr === 'Male' && styles.radioButtonSelected]}
-          onPress={() => handleGenderChange('Male')}
+          style={[styles.radioButton, genderr === 'male' && styles.radioButtonSelected]}
+          onPress={() => handleGenderChange('male')}
         >
-          {genderr === 'Male' && <View style={styles.radioButtonInner} />}
+          {genderr === 'male' && <View style={styles.radioButtonInner} />}
         </TouchableOpacity>
         <Text>Male</Text>
         <TouchableOpacity
-          style={[styles.radioButton, genderr === 'Female' && styles.radioButtonSelected]}
-          onPress={() => handleGenderChange('Female')}
+          style={[styles.radioButton, genderr === 'female' && styles.radioButtonSelected]}
+          onPress={() => handleGenderChange('female')}
         >
-          {genderr === 'Female' && <View style={styles.radioButtonInner} />}
+          {genderr === 'female' && <View style={styles.radioButtonInner} />}
         </TouchableOpacity>
         <Text>Female</Text>
         <TouchableOpacity

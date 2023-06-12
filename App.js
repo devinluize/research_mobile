@@ -71,12 +71,13 @@ const Login = async () => {
 }
 
 const Register = async () => {
-    const full_name = "John Doe123";
-    const username = "johndoe123";
-    const email = "johndoe123@example.com";
+    const full_name = "John Doe123rrr3";
+    const username = "johndoe12333312";
+    const email = "johndoe121233@example.com";
     const password = "johndoe123123";
     const birthday = "1999-01-01";
     const gender = "female";
+    const password_confirmation="johndoe123123";
     const response = await register({
         full_name,
         username,
@@ -84,6 +85,7 @@ const Register = async () => {
         password,
         birthday,
         gender,
+        password_confirmation
     });
     await console.log(response);
 }
@@ -92,7 +94,7 @@ const Register = async () => {
     <NavigationContainer>
         <Router />
     </NavigationContainer>
-//     <View style={styles.container}>
+//     {/* <View style={styles.container}>
 //     <View>
 //             <Text>Open up App.js to start working on your app!</Text>
 //             <StatusBar style="auto" />
@@ -102,12 +104,12 @@ const Register = async () => {
 //             <Button title="register" onPress={() => Register()} />
 //             <Button title="Like" onPress={() => Like()} />
 //             <Button title="Unlike" onPress={() => Unlike()} />
-            
+//             <Button title="submitthread" onPress={() => AddThread()} />
 //             <Button title="get_me" onPress={() => Getmydatafromapi()} />
 //             <Button title="AddThread" onPress={() => AddThread()} />
 
 // </View>
-//         </View>
+//         </View> */}
     )
 };
 

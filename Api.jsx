@@ -20,7 +20,7 @@ import { BACKEND_URL } from "@env";
 // const isAuth = userAuth((state) => state.isAuth);
 //isAuth()
 
-const BearerKey = "6|QnRYwoVmztCjSVNq2GLcqld0nCzxIqfvtiW8hjDt";
+const BearerKey = "46|pea6TeAcdfZrErPtPsB6FrAdLtmGXiu7uDElYwhG";
 const API = axios.create({
   baseURL: BACKEND_URL,
   timeout: 20000,

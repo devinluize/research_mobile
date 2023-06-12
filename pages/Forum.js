@@ -14,26 +14,87 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
-
+import { getAllForum } from '../ForumApi';
 const Forum = ({ navigation }) => {
   const route = useRoute();
   const newEntry = route.params?.newEntry;
   const { title, message, image } = newEntry || {};
-
   const handleNewThread = () => {
-    navigation.navigate('NewThread');
+    navigation.navigate('NewThread',{
+      itemId: 2,
+    });
   };
 
-  const handleThread = () => {
-    navigation.navigate('Thread');
+  const handleThread = (id) => {
+    navigation.navigate('Thread',{
+      ThreadId:id,
+    });
   };
 
   const [likes, setLikes] = useState(0);
-
+  const [counter,setCounter] = useState(0);
   const handleLike = () => {
     setLikes(likes + 1);
   };
 
+  const [data2,setData] = useState([
+    {
+      id: 1,
+      title: 'Eco-Enzyme as Disinfectant1231312',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+    {
+      id: 2,
+      title: 'Eco-Enzyme as Disinfectant',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+    {
+      id: 3,
+      title: 'Eco-Enzyme as Disinfectant',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+    {
+      id: 4,
+      title: 'Eco-Enzyme as Disinfectant',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+    {
+      id: 5,
+      title: 'Eco-Enzyme as Disinfectant',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+    {
+      id: 6,
+      title: 'Eco-Enzyme as Disinfectant',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+    {
+      id: 7,
+      title: 'Eco-Enzyme as Disinfectant',
+      author: 'Devin Suhandi',
+      date: '3 Juni 2023 20:00 PM',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'Image Source',
+    },
+  ])
   const data = [
     {
       id: 1,
@@ -94,9 +155,20 @@ const Forum = ({ navigation }) => {
 
     // Tambahkan data lainnya jika diperlukan
   ];
-
+  const AllForum = async () => {
+    const response = await getAllForum();
+    setData(response);
+    await console.log(response);
+}
+console.log(counter)
+if(counter==0){
+  console.log("dakjbdasj");
+  setCounter(counter+1);
+  AllForum();
+}
+console.log("ini id data",data2);
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.threadContainer} onPress={handleThread}>
+    <TouchableOpacity style={styles.threadContainer} onPress={()=>handleThread(item.id)}>
       <Text style={styles.titleText}>{item.title}</Text>
       <View style={styles.bottomTittleText}>
         <Image source={require('../assets/Forum1.png')} />
@@ -154,7 +226,7 @@ const Forum = ({ navigation }) => {
       <View style={styles.line} />
 
       <FlatList
-        data={data}
+        data={data2}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />

@@ -37,7 +37,17 @@ const getForumByID = async(id) =>{
   } catch (err) {
     console.log(err);
   }
+  
 }
+// const getForumByID = async (id) => {
+//   try {
+//     const response = await axios.get(`${BASE_URL}/forums/${id}`);
+//     return response.data; // Pastikan response.data mengandung data forum yang diharapkan
+//   } catch (error) {
+//     console.log(error);
+//     throw error; // Anda dapat menangani error sesuai kebutuhan Anda
+//   }
+// };
 
 const addThreadToForum = async(id,payload) => {
   try {
